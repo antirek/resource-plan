@@ -1,0 +1,22 @@
+{
+  "name": "mpage",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run build:configurator && npm run build:web",
+    "install": "npm run install:configurator && npm run install:web",
+    "install:configurator:server": "cd app_configurator/server && npm install",
+    "install:configurator:client": "cd app_configurator/client && npm install",
+    "build:configurator:client": "cd app_configurator/client && npm run build",
+    "install:web:server": "cd app_web/server && npm install",
+    "install:web:client": "cd app_web/client && npm install",
+    "build:web:client": "cd app_web/client && npm run build",
+    "install:configurator": "npm run install:configurator:server && npm run install:configurator:client",
+    "install:web": "npm run install:web:server && npm run install:web:client",
+    "build:configurator": "npm run build:configurator:client",
+    "build:web": "npm run build:web:client",
+    "start-configurator": "node app_configurator/server/index",
+    "start-web": "node app_web/server/index"
+  }
+}
