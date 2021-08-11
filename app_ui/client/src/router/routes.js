@@ -9,7 +9,7 @@ const routes = [
     children: [
       {
         path: ':accountId/info',
-        component: () => import('pages/AccountInfo.vue'),
+        component: () => import('pages/accounts/Info.vue'),
         props: true,
       },
       {
