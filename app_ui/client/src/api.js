@@ -1,12 +1,9 @@
 import axios from 'axios';
 import resource from 'resource-axios';
-// import store from './store';
 
 function getBaseUrl() {
   return (window.baseUrl && window.baseUrl !== '{{baseUrl}}') ? window.baseUrl : 'http://localhost:3000';
 }
-
-// const baseUrl = 'http://localhost:3000';
 
 axios.interceptors.request.use((config) => {
   const { token } = 123;// store.getters;
@@ -14,9 +11,11 @@ axios.interceptors.request.use((config) => {
   return config;
 });
 
-const Landing = resource(`${getBaseUrl()}/profile`, axios); // const Landing = resource(`${baseUrl}/profile`, axios);
+const Account = resource(`${getBaseUrl()}/accounts`, {
+  resources: (id) => axios.get(`${getBaseUrl()}/accounts/${id}/resources`),
+}, axios);
 
-export { Landing };
+export { Account };
 
 const apiCall = {
   get: async (url) => {

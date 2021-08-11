@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev:client": "cd app_ui/client && quasar dev",
+    "dev:server": "cd app_ui/server && node index",
     "build": "npm run build:configurator && npm run build:web",
     "install": "npm run install:configurator && npm run install:web",
     "install:configurator:server": "cd app_configurator/server && npm install",

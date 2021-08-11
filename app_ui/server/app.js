@@ -2,19 +2,15 @@
 
 const express = require('express');
 const config = require('config');
-const path = require('path');
-const mongoose = require('mongoose');
 const cors = require('cors');
 
 const quasarServe = require('./quasar-serve');
-const { Landing } = require('./models');
 
-const db = mongoose.connect(config.mongodb, {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
-});
+const {
+  appsRouter,
+  accountsRouter,
+  resourcesRouter,
+} = require('./routes/');
 
 const app = express();
 
@@ -24,7 +20,12 @@ app.use('/', quasarServe({
     baseUrl: config.baseUrl,
   }
 }));
+
 app.use(express.json());
 app.use(cors());
+
+app.use('/apps/', appsRouter);
+app.use('/accounts/', accountsRouter);
+app.use('/resources/', resourcesRouter);
 
 module.exports = app;
