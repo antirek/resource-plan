@@ -16,13 +16,13 @@
 
     <q-separator />
 
-    <q-tab-panels v-model="tab" animated>
+    <q-tab-panels v-model="tab">
       <q-tab-panel name="resources">
         <Resources :accountId="accountId" />
       </q-tab-panel>
 
       <q-tab-panel name="arlogs">
-        <div class="text-h6">Logs</div>
+        <Logs :accountId="accountId" />
       </q-tab-panel>
     </q-tab-panels>
   </div>
@@ -31,11 +31,13 @@
 <script>
 
 import Resources from './Resources.vue';
+import Logs from './Logs.vue';
 
 export default {
   name: 'AccountInfo',
   components: {
     Resources,
+    Logs,
   },
   props: {
     accountId: {

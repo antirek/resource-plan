@@ -44,13 +44,13 @@ const accountResourceSchema = new mongoose.Schema({
 });
 
 const arLogSchema = new mongoose.Schema({
+  date: Date,
   accountId: String,
   resourceid: String,
   oldValue: Number,
   operation: String,
   diffValue: Number,
-  newValue: Number,
-  date: Date,
+  newValue: Number,  
   appId: String,
 });
 

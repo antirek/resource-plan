@@ -6,7 +6,7 @@
             clickable v-ripple
             v-for="(account, index) in accounts" v-bind:key="index"
             :to="`/accounts/${account.accountId}/info`"
-            @click.native="$router.go()"
+            @click="$router.go()"
           >
             <q-item-section>{{ account.title }}</q-item-section>
           </q-item>

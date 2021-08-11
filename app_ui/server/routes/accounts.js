@@ -25,6 +25,18 @@ router.get('/:accountId/resources', async (req, res) => {
   }
 });
 
+router.get('/:accountId/logs', async (req, res) => {
+  const {accountId} = req.params;
+  try {
+    const logs = await ARLog.find({accountId});
+    console.log('accountId', accountId, 'logs', logs);
+    res.json(logs);
+  }
+  catch (e) {
+
+  }
+});
+
 router.post('/', async (req, res) => {
   const data = req.body;
   try {

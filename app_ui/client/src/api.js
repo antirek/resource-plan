@@ -13,6 +13,7 @@ axios.interceptors.request.use((config) => {
 
 const Account = resource(`${getBaseUrl()}/accounts`, {
   resources: (id) => axios.get(`${getBaseUrl()}/accounts/${id}/resources`),
+  logs: (id) => axios.get(`${getBaseUrl()}/accounts/${id}/logs`),
 }, axios);
 
 export { Account };

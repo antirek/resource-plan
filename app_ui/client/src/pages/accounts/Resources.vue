@@ -2,7 +2,7 @@
   <q-table
       title="Resources"
       :data="resources"
-      :columns="resourceColumns"
+      :columns="columns"
       row-key="name"
       :pagination.sync="pagination"
   />
@@ -20,8 +20,8 @@ export default {
   },
   data() {
     return {
-      resources: null,
-      resourceColumns: [
+      resources: [],
+      columns: [
         { name: 'accountId', label: 'accountId', field: 'accountId' },
         { name: 'resourceId', label: 'resourceId', field: 'resourceId' },
         { name: 'value', label: 'value', field: 'value' },
