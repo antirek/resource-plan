@@ -13,9 +13,9 @@ router.get('/getAvailable/:accountId/:resourceId', async (req, res) => {
     const ar = await AccountResource.findOne({accountId, resourceId});
 
     const data = {
-      accountId, 
+      accountId,
       resourceId,
-      value: ar.value,
+      value: ar.value > 0 ? ar.value : 0,
     };
 
     console.log('data', data);

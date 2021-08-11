@@ -1,4 +1,5 @@
 const express = require('express');
+const moment = require('moment');
 const {Account, AccountResource, ARLog } = require('./../models');
 const router = express.Router();// eslint-disable-line new-cap
 
@@ -36,6 +37,53 @@ router.get('/:accountId/logs', async (req, res) => {
 
   }
 });
+
+router.get('/:accountId/usage', async (req, res) => {
+  const { accountId } = req.params;
+  try {
+    const todayStart = moment().format('YYYY-MM-DD 00:00:00');
+    const todayEnd = moment().format('YYYY-MM-DD 23:59:59');
+
+    const logs = await ARLog.find({
+      accountId,
+      date: {
+        $gte: todayStart,
+        $lte: todayEnd,
+      },
+      operation: 'decrease',
+    });
+
+    const resources = [...new Set(logs.map(x => x.resourceId))];
+
+    console.log('accountId', accountId, 'resources', resources);
+
+    const results = {};
+
+    resources.forEach(r => {
+      results[r] = 0;
+    });
+
+    console.log('results', results);
+    logs.forEach((log) => {
+      results[log.resourceId] += log.diffValue;
+    });
+
+    console.log('results', results);
+
+    const o = [];
+    for (let prop in results) {
+      o.push({
+        resourceId: prop,
+        count: results[prop],
+      })
+    };
+    res.json(o);
+  }
+  catch (e) {
+
+  }
+});
+
 
 router.post('/', async (req, res) => {
   const data = req.body;

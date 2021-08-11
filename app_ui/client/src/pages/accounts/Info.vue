@@ -11,7 +11,8 @@
       narrow-indicator
     >
       <q-tab name="resources" label="Resources" :to="{ query: { tab: '1' } }" />
-      <q-route-tab name="arlogs" label="Logs" :to="{ query: { tab: '2' } }" />
+      <q-route-tab name="usage" label="Usage" :to="{ query: { tab: '2' } }" />
+      <q-route-tab name="arlogs" label="Logs" :to="{ query: { tab: '3' } }" />
     </q-tabs>
 
     <q-separator />
@@ -19,6 +20,9 @@
     <q-tab-panels v-model="tab">
       <q-tab-panel name="resources">
         <Resources :accountId="accountId" />
+      </q-tab-panel>
+
+      <q-tab-panel name="usage">
       </q-tab-panel>
 
       <q-tab-panel name="arlogs">
