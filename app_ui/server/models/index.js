@@ -46,11 +46,11 @@ const accountResourceSchema = new mongoose.Schema({
 const arLogSchema = new mongoose.Schema({
   date: Date,
   accountId: String,
-  resourceid: String,
+  resourceId: String,
   oldValue: Number,
   operation: String,
   diffValue: Number,
-  newValue: Number,  
+  newValue: Number,
   appId: String,
 });
 
