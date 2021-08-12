@@ -29,7 +29,7 @@ router.get('/:accountId/resources', async (req, res) => {
 router.get('/:accountId/logs', async (req, res) => {
   const {accountId} = req.params;
   try {
-    const logs = await ARLog.find({accountId});
+    const logs = await ARLog.find({accountId}).sort({date: -1}).limit(1000);
     console.log('accountId', accountId, 'logs', logs);
     res.json(logs);
   }

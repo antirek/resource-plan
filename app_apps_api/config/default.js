@@ -3,5 +3,6 @@ module.exports = {
   settingsMongodb: 'mongodb://mongodb/resource',
   baseUrl: 'http://localhost:3000',
   uploadDirectory: '/tmp',
+  redis: 'redis://redis'
 };
   
