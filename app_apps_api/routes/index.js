@@ -1,12 +1,4 @@
 const express = require('express');
-const { customAlphabet } = require('nanoid');
-const { redis } = require('../config/default');
-
-const nanoid = customAlphabet('1234567890abcdef', 10);
-const generate = () => {
-  return nanoid();
-}
-
 const {
   Account,
   AccountResource,
@@ -28,21 +20,11 @@ const createRouter = (redisClient) => {
       };
 
       console.log('data', data);
-      res.json(data);
+      res.jsend.success(data);
     }
     catch (e) {
 
     }
-  });
-
-  router.get('/decrease/:accountId/token', async (req, res) => {
-    const {accountId} = req.params;
-    const token = generate();
-    const key = `${accountId}-${token}`;
-    await redisClient.set(key, 1);
-    await redisClient.expire(key, 100);
-    console.log('decrease token', accountId, token);
-    res.jsend.success({token});
   });
 
   router.get('/decrease/:accountId/:resourceId/:value/:token', async (req, res) => {
@@ -50,13 +32,17 @@ const createRouter = (redisClient) => {
 
     console.log('decrease', {accountId, resourceId, value, token});
     try {
+      // проверка на уникальность токена, чтобы не было дубликатов записей списания ресурса в течение часа
       const key = `${accountId}-${token}`;
       const rValue = await redisClient.get(key);
-      if (!rValue) {
-        console.log('not valid token');
-        return res.jsend.error('not valid token');
+      if (rValue) {
+        console.log(`duplicate token ${token}`);
+        return res.jsend.error(`duplicate token ${token}`);
       }
-      await redisClient.del(key);
+
+      await redisClient.set(key, 1);
+      await redisClient.expire(key, 3600);
+      /// 
 
       console.log('token valid');
       const ar = await AccountResource.findOne({accountId, resourceId});

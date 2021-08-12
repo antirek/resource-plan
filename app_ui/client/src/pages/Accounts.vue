@@ -8,7 +8,7 @@
             :to="`/accounts/${account.accountId}/info`"
             @click="$router.go()"
           >
-            <q-item-section>{{ account.title }}</q-item-section>
+            <q-item-section>{{ account.accountId }} {{ account.title }}</q-item-section>
           </q-item>
         </q-list>
      </div>

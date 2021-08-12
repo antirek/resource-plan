@@ -13,6 +13,7 @@ const appSchema = new mongoose.Schema({
   appId: {
     type: String,
     index: true,
+    unique: true,
   },
   title: String,
   key: String,
@@ -22,6 +23,7 @@ const accountSchema = new mongoose.Schema({
   accountId: {
     type: String,
     index: true,
+    unique: true,
   },
   title: String,
   timezone: String,
@@ -31,27 +33,66 @@ const resourceSchema = new mongoose.Schema({
   resourceId: {
     type: String,
     index: true,
+    unique: true,
   },
   title: String,
   description: String,
 });
 
 const accountResourceSchema = new mongoose.Schema({
-  accountId: String,
-  resourceid: String,
-  value: Number,
-  lastChanged: Date,
+  accountId: {
+    type: String,
+    required: true,
+  },
+  resourceid: {
+    type: String,
+    required: true,
+  },
+  value: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+  lastChanged: {
+    type: Date,
+    required: true,
+    default: new Date(),
+  },
 });
 
 const arLogSchema = new mongoose.Schema({
-  date: Date,
-  accountId: String,
-  resourceId: String,
-  oldValue: Number,
-  operation: String,
-  diffValue: Number,
-  newValue: Number,
-  appId: String,
+  date: {
+    type: Date,
+    required: true,
+  },
+  accountId: {
+    type: String,
+    required: true,
+  },
+  resourceId: {
+    type: String,
+    required: true,
+  },
+  oldValue: {
+    type: Number,
+    required: true,
+  },
+  operation: {
+    type: String,
+    required: true,
+  },
+  diffValue: {
+    type: Number,
+    required: true,
+  },
+  newValue: {
+    type: Number,
+    required: true,
+  },
+  appId: {
+    type: String,
+    required: true,
+  },
 });
 
 const App = settingsConnection.model('apps', appSchema);
