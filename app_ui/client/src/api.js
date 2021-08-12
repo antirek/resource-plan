@@ -14,6 +14,11 @@ axios.interceptors.request.use((config) => {
 const Account = resource(`${getBaseUrl()}/accounts`, {
   resources: (id) => axios.get(`${getBaseUrl()}/accounts/${id}/resources`),
   logs: (id) => axios.get(`${getBaseUrl()}/accounts/${id}/logs`),
+  usage(id, date) {
+    return date
+      ? axios.get(`${getBaseUrl()}/accounts/${id}/usage/${date}`)
+      : axios.get(`${getBaseUrl()}/accounts/${id}/usage`);
+  },
 }, axios);
 
 export { Account };

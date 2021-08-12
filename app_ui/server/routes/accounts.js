@@ -38,20 +38,25 @@ router.get('/:accountId/logs', async (req, res) => {
   }
 });
 
-router.get('/:accountId/usage', async (req, res) => {
-  const { accountId } = req.params;
-  try {
-    const todayStart = moment().format('YYYY-MM-DD 00:00:00');
-    const todayEnd = moment().format('YYYY-MM-DD 23:59:59');
+router.get([
+  '/:accountId/usage',
+  '/:accountId/usage/:date',
+], async (req, res) => {
+  const { accountId, date } = req.params;
+  try {    
+    const todayStart = moment(date).format('YYYY-MM-DD 00:00:00');
+    const todayEnd = moment(date).format('YYYY-MM-DD 23:59:59');
 
-    const logs = await ARLog.find({
+    const query = {
       accountId,
       date: {
         $gte: todayStart,
         $lte: todayEnd,
       },
       operation: 'decrease',
-    });
+    };
+    console.log('usage query', query);
+    const logs = await ARLog.find(query);
 
     const resources = [...new Set(logs.map(x => x.resourceId))];
 

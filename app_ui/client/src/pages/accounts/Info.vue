@@ -23,6 +23,7 @@
       </q-tab-panel>
 
       <q-tab-panel name="usage">
+        <Usage :accountId="accountId" />
       </q-tab-panel>
 
       <q-tab-panel name="arlogs">
@@ -36,12 +37,14 @@
 
 import Resources from './Resources.vue';
 import Logs from './Logs.vue';
+import Usage from './Usage.vue';
 
 export default {
   name: 'AccountInfo',
   components: {
     Resources,
     Logs,
+    Usage,
   },
   props: {
     accountId: {
